@@ -1,0 +1,134 @@
+🛠️ Gereksinimler
+
+MacBook M1/M2/M4 (Apple Silicon)
+macOS (Sonoma veya üzeri önerilir)
+Homebrew (paket yöneticisi)
+OpenMind API Anahtarı (ücretsiz - $5 kredi ile başlar)
+
+
+📦 Adım 1: Homebrew Kurulumu
+Eğer Homebrew yüklü değilse, Terminal'de şu komutu çalıştırın:
+bash/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+Kurulum sonrası Terminal'de brew --version yazarak kontrol edin.
+
+🔧 Adım 2: Gerekli Bağımlılıkları Yükleyin
+Terminal'de şu komutları sırasıyla çalıştırın:
+bash# PortAudio, FFmpeg ve Rust kurulumu
+brew install portaudio
+brew install ffmpeg
+brew install rust
+
+# UV paket yöneticisini kurun
+brew install uv
+
+Kurulumları kontrol edin:
+bashportaudio --version  # veya brew list portaudio
+ffmpeg -version
+rustc --version
+cargo --version
+uv --version
+✅ Beklenen Çıktı: Her komut için versiyon numarası görmelisiniz.
+
+📥 Adım 3: OM1 Projesini İndirin
+bash# Projeyi klonlayın
+git clone https://github.com/OpenmindAGI/OM1.git
+
+# Proje klasörüne girin
+cd OM1
+
+# Alt modülleri güncelleyin
+git submodule update --init
+
+# Sanal ortam oluşturun
+uv venv
+
+✅ Beklenen Çıktı:
+Using CPython 3.10.19
+Creating virtual environment at: .venv
+Activate with: source .venv/bin/activate
+
+
+🔑 Adım 4: API Anahtarı Alın ve Yapılandırın
+4.1 API Anahtarı Alın
+
+Şu adrese gidin: https://portal.openmind.org/
+Ücretsiz hesap oluşturun (Google ile giriş yapabilirsiniz)
+Dashboard'da API anahtarınızı göreceksiniz
+Anahtarı kopyalayın (başında om1_live_ ile başlar)
+
+4.2 Yapılandırma Dosyasını Oluşturun
+Terminal'de şu komutları çalıştırın:
+# .env dosyası oluşturun
+cp env.example .env
+
+# Dosyayı metin editörü ile açın
+open -e .env
+
+
+4.3 API Anahtarını Ekleyin
+Açılan TextEdit dosyasında şuna benzer bir satır göreceksiniz:
+OPENMIND_API_KEY=your_api_key_here
+Bunu şu şekilde değiştirin:
+OPENMIND_API_KEY=om1_live_sizin_gercek_anahtariniz
+⌘ + S ile kaydedin ve kapatın.
+
+🚀 Adım 5: OM1'i Çalıştırın
+Terminal'de şu komutu çalıştırın:
+bashuv run src/run.py spot
+
+5.2 Başarılı Çalıştırma Belirtileri
+Terminal'de şu mesajları göreceksiniz:
+INFO - Converted function call speak({'action': 'Yay! I love learning new rules...'})
+INFO - Universal Laws loaded
+INFO - Available inputs: ...
+INFO - Available actions: MOVE, SPEAK, EMOTION
+✅ Her şey hazır! Sistem çalışıyor.
+
+🌐 Adım 6: WebSim Arayüzünü Açın
+Tarayıcınızda şu adrese gidin:
+http://localhost:8000
+
+🐛 Olası Sorunlar ve Çözümler
+Problem: "uv: command not found"
+Çözüm: UV'yi Homebrew ile yükleyin:
+bashbrew install uv
+uv --version  # Kontrol edin
+Problem: "py-sr25519-bindings" build hatası
+Çözüm: Rust eksik, yükleyin:
+bashbrew install rust
+rustc --version
+cargo --version
+Problem: "portaudio" hatası
+Çözüm: PortAudio'yu yeniden yükleyin:
+bashbrew reinstall portaudio
+Problem: Webcam erişim izni hatası
+Çözüm:
+
+Sistem Ayarları > Gizlilik ve Güvenlik > Kamera
+Terminal ve Python'a kamera erişimi verin
+Terminal'i yeniden başlatın
+
+Problem: API anahtarı hatası / "401 Unauthorized"
+Çözüm:
+
+.env dosyasını kontrol edin
+API anahtarının doğru kopyalandığından emin olun
+Anahtarın başında om1_live_ olmalı
+Portal'da kredi bakiyenizi kontrol edin
+
+Problem: "localhost:8000" açılmıyor
+Çözüm:
+
+Terminal'de hata mesajlarını kontrol edin
+OM1'in çalıştığından emin olun
+Başka bir servisten port çakışması olabilir, Terminal'de göreceksiniz
+
+
+💡 İpuçları
+
+Performans: M1/M2/M4 üzerinde oldukça hızlı çalışıyor. API çağrıları internet hızınıza bağlı.
+Kredi Yönetimi: OpenMind Portal'da $5 ücretsiz kredi veriliyor. Her API çağrısı küçük miktarda kredi harcar. Dashboard'dan bakiyenizi takip edebilirsiniz.
+Geliştirme: Python ve JSON5 bilgisi ile sistemi kolayca özelleştirebilirsiniz. config/ klasöründeki dosyalar oldukça anlaşılır.
+Topluluk: Discord sunucusuna katılarak diğer geliştiricilerle etkileşime geçebilirsiniz: https://discord.gg/VUjpg4ef5n
+Katkıda Bulunma: Proje MIT lisansı altında. Katkıda bulunmak için CONTRIBUTING.md dosyasını okuyun.
+Duraklatma: Terminal'de Ctrl + C ile durdurabilirsiniz. Tekrar başlatmak için uv run src/run.py spot komutunu kullanın.
