@@ -1,140 +1,280 @@
-🤖 Deploy Your First Robot on OpenMind Fabric Portal
+# 🤖 Deploy Your First Robot on OpenMind Fabric Portal
+
 A comprehensive guide for setting up and deploying an OM1 agent on macOS and Linux systems.
 
-📋 Table of Contents
+---
 
-Requirements
-macOS Installation
-Linux Installation
-Verification
-Troubleshooting
-Next Steps
+## 📋 Table of Contents
+- [Requirements](#-requirements)
+- [macOS Installation](#-macos-installation)
+- [Linux Installation](#-linux-installation)
+- [Verification](#-verification)
+- [Troubleshooting](#-troubleshooting)
+- [Next Steps](#-next-steps)
 
+---
 
-🔧 Requirements
-macOS
+## 🔧 Requirements
 
-macOS (Apple Silicon or Intel)
-Homebrew package manager
-OpenMind API Keys (get from OpenMind Fabric Portal - $5 credit for new users)
+### macOS
+- macOS (Apple Silicon or Intel)
+- Homebrew package manager
+- OpenMind API Keys (get from OpenMind Fabric Portal - $5 credit for new users)
 
-Linux
+### Linux
+- Ubuntu/Debian-based distribution
+- Terminal access with sudo privileges
+- Internet connection
 
-Ubuntu/Debian-based distribution
-Terminal access with sudo privileges
-Internet connection
+---
 
+## 🍎 macOS Installation
 
-🍎 macOS Installation
-Step 1: Homebrew Setup
+### Step 1: Homebrew Setup
+
 If you don't have Homebrew installed, run this command in Terminal:
-bashbash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-After installation, verify Homebrew is working:
-bashbrew --version
-Step 2: Install Required Dependencies
-Install PortAudio, FFmpeg, and Rust:
-bashbrew install portaudio
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+### Verify Homebrew Installation
+```bash
+brew --version
+```
+
+### Step 2: Install PortAudio
+```bash
+brew install portaudio
+```
+
+### Step 3: Install FFmpeg
+```bash
 brew install ffmpeg
+```
+
+### Step 4: Install Rust
+```bash
 brew install rust
-Step 3: Install UV Package Manager
-bashbrew install uv
-Step 4: Clone OM1 Project
-bashgit clone https://github.com/OpenMindAGI/OM1.git
+```
+
+### Step 5: Install UV Package Manager
+```bash
+brew install uv
+```
+
+### Step 6: Clone OM1 Project
+```bash
+git clone https://github.com/OpenMindAGI/OM1.git
+```
+
+### Navigate to Project Directory
+```bash
 cd OM1
-Step 5: Update Git Submodules
-bashgit submodule update --init
-Step 6: Create Virtual Environment
-bashuv venv
-Step 7: Run the Setup
-bashbash scripts/setup.sh
+```
 
-🐧 Linux Installation
-Step 1: Install Required Packages
-Update your system and install dependencies:
-bashsudo apt-get update
-bashsudo apt-get install portaudio19-dev python-all-dev -y
-bashsudo apt-get install ffmpeg -y
-bashsudo apt-get install alsa-utils -y
+### Step 7: Update Git Submodules
+```bash
+git submodule update --init
+```
+
+### Step 8: Create Virtual Environment
+```bash
+uv venv
+```
+
+### Step 9: Run the Setup
+```bash
+bash scripts/setup.sh
+```
+
+---
+
+## 🐧 Linux Installation
+
+### Step 1: Update System
+```bash
+sudo apt-get update
+```
+
+### Step 2: Install PortAudio and Python Dev Packages
+```bash
+sudo apt-get install portaudio19-dev python-all-dev -y
+```
+
+### Step 3: Install FFmpeg
+```bash
+sudo apt-get install ffmpeg -y
+```
+
+### Step 4: Install ALSA Utils
+```bash
+sudo apt-get install alsa-utils -y
+```
+
+### Load Sound Module
+```bash
 sudo modprobe snd-dummy
-Step 2: Install UV Package Manager
-bashwget https://astral.sh/uv/install.sh
+```
+
+### Step 5: Download UV Installer
+```bash
+wget https://astral.sh/uv/install.sh
+```
+
+### Make Installer Executable
+```bash
 chmod +x install.sh
+```
+
+### Run UV Installer
+```bash
 ./install.sh
-Step 3: Clone OM1 Repository
-bashgit clone https://github.com/OpenMindAGI/OM1.git
-bashcd OM1
-Step 4: Update Git Submodules
-bashgit submodule update --init
-Step 5: Create Virtual Environment
-bashuv venv
-Step 6: Run the Setup
-bashbash scripts/setup.sh
+```
 
-✅ Verification
-After installation, verify everything is set up correctly:
-Check Homebrew (macOS)
-bashbrew --version
-Check PortAudio (macOS)
-bashbrew list portaudio
-Check FFmpeg
-bashffmpeg -version
-Check Cargo (Rust)
-bashcargo --version
-Check UV
-bashuv --version
+### Step 6: Clone OM1 Repository
+```bash
+git clone https://github.com/OpenMindAGI/OM1.git
+```
 
-🔍 Troubleshooting
-macOS Issues
-Problem: Homebrew command not found
-Solution:
-bashecho 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+### Navigate to Project Directory
+```bash
+cd OM1
+```
+
+### Step 7: Update Git Submodules
+```bash
+git submodule update --init
+```
+
+### Step 8: Create Virtual Environment
+```bash
+uv venv
+```
+
+### Step 9: Run the Setup
+```bash
+bash scripts/setup.sh
+```
+
+---
+
+## ✅ Verification
+
+### Check Homebrew (macOS)
+```bash
+brew --version
+```
+
+### Check PortAudio (macOS)
+```bash
+brew list portaudio
+```
+
+### Check FFmpeg
+```bash
+ffmpeg -version
+```
+
+### Check Cargo (Rust)
+```bash
+cargo --version
+```
+
+### Check UV
+```bash
+uv --version
+```
+
+---
+
+## 🔍 Troubleshooting
+
+### macOS: Homebrew Command Not Found
+```bash
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+```
+```bash
 eval "$(/opt/homebrew/bin/brew shellenv)"
-Problem: Permission denied
-Solution:
-bashsudo chmod +x install.sh
-Linux Issues
-Problem: Package installation fails
-Solution:
-bashsudo apt-get update
+```
+
+### Permission Denied Error
+```bash
+sudo chmod +x install.sh
+```
+
+### Linux: Update System Packages
+```bash
+sudo apt-get update
+```
+```bash
 sudo apt-get upgrade
-Problem: Audio device issues
-Solution:
-bashaplay -l
-Problem: Git submodule errors
-Solution:
-bashgit submodule sync
+```
+
+### Check Audio Devices
+```bash
+aplay -l
+```
+
+### Git Submodule Sync
+```bash
+git submodule sync
+```
+```bash
 git submodule update --init --recursive
+```
 
-🚀 Next Steps
+---
 
-Configure your API keys in the OM1 project
-Set up your robot parameters according to the documentation
-Run your first agent using the provided scripts
-Connect to OpenMind Fabric Portal to monitor your deployment
+## 🚀 Next Steps
 
+1. **Configure your API keys** in the OM1 project
+2. **Set up your robot parameters** according to the documentation
+3. **Run your first agent** using the provided scripts
+4. **Connect to OpenMind Fabric Portal** to monitor your deployment
 
-📚 Additional Resources
+---
 
-OpenMind Fabric Portal
-Homebrew Documentation
-UV Documentation
+## 📚 Additional Resources
 
+- [OpenMind Fabric Portal](https://openmind.com)
+- [Homebrew Documentation](https://docs.brew.sh)
+- [UV Documentation](https://github.com/astral-sh/uv)
 
-🤝 Contributing
+---
+
+## 🤝 Contributing
+
 Contributions are welcome! Feel free to:
+- Report bugs
+- Suggest new features
+- Submit pull requests
+- Improve documentation
 
-Report bugs
-Suggest new features
-Submit pull requests
-Improve documentation
+---
 
+## 📝 License
 
-📝 License
 This guide is provided as-is for educational purposes.
 
-⚠️ Important Notes
+---
 
-When running commands with sudo, you'll be prompted for your password
-Password characters won't be visible while typing (security feature)
-Ensure stable internet connection during installation
-Backup your system before making major changes
+## ⚠️ Important Notes
+
+- When running commands with `sudo`, you'll be prompted for your password
+- Password characters won't be visible while typing (security feature)
+- Ensure stable internet connection during installation
+- Backup your system before making major changes
+
+---
+
+## 💡 Tips
+
+- Use `Tab` key for auto-completion in Terminal
+- Use `↑` arrow key to recall previous commands
+- Keep your system and packages updated regularly
+
+---
+
+**Made with ❤️ for the OpenMind Community**
+
+*For support and questions, please refer to the official OpenMind documentation or community forums.*
