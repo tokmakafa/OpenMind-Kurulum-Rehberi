@@ -1,195 +1,376 @@
-# 🤖 Deploy Your First Robot on OpenMind Fabric Portal
+# 🤖 OpenMind Fabric Portal'da Ilk Robotunuzu Olusturun
 
-A comprehensive guide for setting up and deploying an OM1 agent on macOS and Linux systems.
-
----
-
-## 📋 Table of Contents
-- [Requirements](#-requirements)
-- [macOS Installation](#-macos-installation)
-- [Linux Installation](#-linux-installation)
-- [Verification](#-verification)
-- [Troubleshooting](#-troubleshooting)
-- [Next Steps](#-next-steps)
+macOS ve Linux sistemlerinde OM1 ajanini kurmak ve dagitmak icin kapsamli rehber.
 
 ---
 
-## 🔧 Requirements
+## 📋 Icindekiler
+- [Gereksinimler](#-gereksinimler)
+- [API Key Alma](#-api-key-alma)
+- [macOS Kurulumu](#-macos-kurulumu)
+- [Linux Kurulumu](#-linux-kurulumu)
+- [Robotu Calistirma](#-robotu-calistirma)
+- [Dogrulama](#-dogrulama)
+- [Sorun Giderme](#-sorun-giderme)
+
+---
+
+## 🔧 Gereksinimler
 
 ### macOS
-- macOS (Apple Silicon or Intel)
-- Homebrew package manager
-- OpenMind API Keys (get from OpenMind Fabric Portal - $5 credit for new users)
+- macOS (Apple Silicon veya Intel)
+- Homebrew paket yoneticisi
+- OpenMind API Anahtarlari (OpenMind Fabric Portal'dan edinin - yeni kullanicilar icin $5 kredi)
 
 ### Linux
-- Ubuntu/Debian-based distribution
-- Terminal access with sudo privileges
-- Internet connection
+- Ubuntu/Debian tabanli dagitim
+- Sudo yetkilerine sahip terminal erisimi
+- Internet baglantisi
 
 ---
 
-## 🍎 macOS Installation
+## 🔑 API Key Alma
 
-### Step 1: Homebrew Setup
+### Adim 1: OpenMind Fabric Portal'a Kayit Olun
 
-If you don't have Homebrew installed, run this command in Terminal:
+1. [OpenMind Fabric Portal](https://fabric.openmind.com) adresine gidin
+2. **Sign Up** butonuna tiklayin
+3. Email adresiniz ve sifrenizle kayit olun
+4. Email dogrulamasi yapin
+
+### Adim 2: API Key Olusturun
+
+1. Portal'a giris yapin
+2. **Settings** veya **API Keys** bolumune gidin
+3. **Create New API Key** butonuna tiklayin
+4. API Key'inizi kopyalayin ve guvenli bir yere kaydedin
+
+**Ornek API Key:**
+```
+om_1234567890abcdefghijklmnopqrstuvwxyz
+```
+
+**ONEMLI:** API Key'inizi kimseyle paylasmаyin! Bu anahtari kaybederseniz yenisini olusturmaniz gerekecek.
+
+---
+
+## 🍎 macOS Kurulumu
+
+### Adim 1: Homebrew Kurulumu
+
+Eger Homebrew yuklu degilse, Terminal'de su komutu calistirin:
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-### Verify Homebrew Installation
+### Homebrew Kurulumunu Dogrulayın
 ```bash
 brew --version
 ```
 
-### Step 2: Install PortAudio
+### Adim 2: PortAudio Kurulumu
 ```bash
 brew install portaudio
 ```
 
-### Step 3: Install FFmpeg
+### Adim 3: FFmpeg Kurulumu
 ```bash
 brew install ffmpeg
 ```
 
-### Step 4: Install Rust
+### Adim 4: Rust Kurulumu
 ```bash
 brew install rust
 ```
 
-### Step 5: Install UV Package Manager
+### Adim 5: UV Paket Yoneticisi Kurulumu
 ```bash
 brew install uv
 ```
 
-### Step 6: Clone OM1 Project
+### Adim 6: OM1 Projesini Klonlayin
 ```bash
 git clone https://github.com/OpenMindAGI/OM1.git
 ```
 
-### Navigate to Project Directory
+### Proje Dizinine Gecin
 ```bash
 cd OM1
 ```
 
-### Step 7: Update Git Submodules
+### Adim 7: Git Alt Modullerini Guncelleyin
 ```bash
 git submodule update --init
 ```
 
-### Step 8: Create Virtual Environment
+### Adim 8: Sanal Ortam Olusturun
 ```bash
 uv venv
 ```
 
-### Step 9: Run the Setup
+### Adim 9: Kurulumu Calistirin
 ```bash
 bash scripts/setup.sh
 ```
 
+### Adim 10: .env Dosyasi Olusturun
+
+OM1 klasorunun icinde `.env` dosyasi olusturun:
+```bash
+nano .env
+```
+
+### Adim 11: API Key'lerinizi Girin
+
+Asagidaki satirlari kopyalayin ve `your_api_key_here` kismini yukarida aldiginiz gercek API key'inizle degistirin:
+```
+OPENMIND_API_KEY=your_api_key_here
+ANTHROPIC_API_KEY=your_anthropic_key_here
+```
+
+**Ornek (Gercek key'lerinizle degistirin):**
+```
+OPENMIND_API_KEY=om_1234567890abcdefghijklmnopqrstuvwxyz
+ANTHROPIC_API_KEY=sk-ant-1234567890abcdefghijklmnopqrstuvwxyz
+```
+
+### Adim 12: Dosyayi Kaydedin
+
+- Kaydetmek icin: `Ctrl + O` basin
+- Enter'a basin
+- Cikmak icin: `Ctrl + X` basin
+
+### Adim 13: .env Dosyasini Kontrol Edin
+```bash
+cat .env
+```
+
+API key'lerinizi gorebilmelisiniz.
+
 ---
 
-## 🐧 Linux Installation
+## 🐧 Linux Kurulumu
 
-### Step 1: Update System
+### Adim 1: Sistemi Guncelleyin
 ```bash
 sudo apt-get update
 ```
 
-### Step 2: Install PortAudio and Python Dev Packages
+### Adim 2: PortAudio ve Python Gelistirme Paketlerini Kurun
 ```bash
 sudo apt-get install portaudio19-dev python-all-dev -y
 ```
 
-### Step 3: Install FFmpeg
+### Adim 3: FFmpeg Kurulumu
 ```bash
 sudo apt-get install ffmpeg -y
 ```
 
-### Step 4: Install ALSA Utils
+### Adim 4: ALSA Araclarini Kurun
 ```bash
 sudo apt-get install alsa-utils -y
 ```
 
-### Load Sound Module
+### Ses Modulunu Yukleyin
 ```bash
 sudo modprobe snd-dummy
 ```
 
-### Step 5: Download UV Installer
+### Adim 5: UV Yukleyicisini Indirin
 ```bash
 wget https://astral.sh/uv/install.sh
 ```
 
-### Make Installer Executable
+### Yukleyiciyi Calistirilabilir Yapin
 ```bash
 chmod +x install.sh
 ```
 
-### Run UV Installer
+### UV Yukleyicisini Calistirin
 ```bash
 ./install.sh
 ```
 
-### Step 6: Clone OM1 Repository
+### Adim 6: OM1 Deposunu Klonlayin
 ```bash
 git clone https://github.com/OpenMindAGI/OM1.git
 ```
 
-### Navigate to Project Directory
+### Proje Dizinine Gecin
 ```bash
 cd OM1
 ```
 
-### Step 7: Update Git Submodules
+### Adim 7: Git Alt Modullerini Guncelleyin
 ```bash
 git submodule update --init
 ```
 
-### Step 8: Create Virtual Environment
+### Adim 8: Sanal Ortam Olusturun
 ```bash
 uv venv
 ```
 
-### Step 9: Run the Setup
+### Adim 9: Kurulumu Calistirin
 ```bash
 bash scripts/setup.sh
 ```
 
+### Adim 10: .env Dosyasi Olusturun
+
+OM1 klasorunun icinde `.env` dosyasi olusturun:
+```bash
+nano .env
+```
+
+### Adim 11: API Key'lerinizi Girin
+
+Asagidaki satirlari kopyalayin ve `your_api_key_here` kismini yukarida aldiginiz gercek API key'inizle degistirin:
+```
+OPENMIND_API_KEY=your_api_key_here
+ANTHROPIC_API_KEY=your_anthropic_key_here
+```
+
+**Ornek (Gercek key'lerinizle degistirin):**
+```
+OPENMIND_API_KEY=om_1234567890abcdefghijklmnopqrstuvwxyz
+ANTHROPIC_API_KEY=sk-ant-1234567890abcdefghijklmnopqrstuvwxyz
+```
+
+### Adim 12: Dosyayi Kaydedin
+
+- Kaydetmek icin: `Ctrl + O` basin
+- Enter'a basin
+- Cikmak icin: `Ctrl + X` basin
+
+### Adim 13: .env Dosyasini Kontrol Edin
+```bash
+cat .env
+```
+
+API key'lerinizi gorebilmelisiniz.
+
 ---
 
-## ✅ Verification
+## 🚀 Robotu Calistirma
 
-### Check Homebrew (macOS)
+### Sanal Ortami Aktif Edin
+```bash
+source .venv/bin/activate
+```
+
+Terminal'inizde `(.venv)` ifadesini gormelisiniz.
+
+### Robotu Baslatin
+```bash
+python main.py
+```
+
+veya
+```bash
+uv run main.py
+```
+
+### Ilk Calistirmada
+
+Robot ilk kez calistiginda sizden:
+- Kullanici adi
+- Robot ismi
+- Ses tercihleri
+- Dil secimi
+
+gibi temel ayarlari yapmanizi isteyecek.
+
+---
+
+## ✅ Dogrulama
+
+### Homebrew'i Kontrol Edin (macOS)
 ```bash
 brew --version
 ```
 
-### Check PortAudio (macOS)
+### PortAudio'yu Kontrol Edin (macOS)
 ```bash
 brew list portaudio
 ```
 
-### Check FFmpeg
+### FFmpeg'i Kontrol Edin
 ```bash
 ffmpeg -version
 ```
 
-### Check Cargo (Rust)
+### Cargo'yu Kontrol Edin (Rust)
 ```bash
 cargo --version
 ```
 
-### Check UV
+### UV'yi Kontrol Edin
 ```bash
 uv --version
 ```
 
+### API Key'leri Kontrol Edin
+```bash
+cat .env
+```
+
+veya
+```bash
+echo $OPENMIND_API_KEY
+```
+
 ---
 
-## 🔍 Troubleshooting
+## 🔍 Sorun Giderme
 
-### macOS: Homebrew Command Not Found
+### API Key Hatasi: "API key not found"
+
+**Cozum 1: .env dosyasini kontrol edin**
+```bash
+cd OM1
+cat .env
+```
+
+Eger dosya bossa veya yoksa, yukaridaki adimlarla yeniden olusturun.
+
+**Cozum 2: Ortam degiskenlerini manuel olarak ayarlayin**
+```bash
+export OPENMIND_API_KEY="om_1234567890abcdefghijklmnopqrstuvwxyz"
+export ANTHROPIC_API_KEY="sk-ant-1234567890abcdefghijklmnopqrstuvwxyz"
+```
+
+### API Key Hatasi: "Invalid API key"
+
+**Cozum:**
+- OpenMind Portal'da API key'inizin aktif oldugunu kontrol edin
+- API key'i dogru kopyaladiginizdan emin olun (bosluk veya ozel karakter olmamali)
+- API key'in basinda/sonunda bosluk olmadigini kontrol edin
+- Yeni bir API key olusturup tekrar deneyin
+
+**Dogru format:**
+```
+OPENMIND_API_KEY=om_1234567890abcdefghijklmnopqrstuvwxyz
+```
+
+**Yanlis formatlar:**
+```
+OPENMIND_API_KEY = om_1234...  (esittir isaretinin etrafinda bosluk olmamali)
+OPENMIND_API_KEY= om_1234...   (key'den once bosluk olmamali)
+```
+
+### .env Dosyasi Gorunmuyor
+```bash
+ls -la
+```
+
+Bu komutla gizli dosyalari gorebilirsiniz. Eger `.env` yoksa:
+```bash
+touch .env
+nano .env
+```
+
+### macOS: Homebrew Komutu Bulunamadi
 ```bash
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 ```
@@ -197,12 +378,12 @@ echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 ```
 
-### Permission Denied Error
+### Izin Reddedildi Hatasi
 ```bash
 sudo chmod +x install.sh
 ```
 
-### Linux: Update System Packages
+### Linux: Sistem Paketlerini Guncelleyin
 ```bash
 sudo apt-get update
 ```
@@ -210,12 +391,12 @@ sudo apt-get update
 sudo apt-get upgrade
 ```
 
-### Check Audio Devices
+### Ses Cihazlarini Kontrol Edin
 ```bash
 aplay -l
 ```
 
-### Git Submodule Sync
+### Git Alt Modullerini Senkronize Edin
 ```bash
 git submodule sync
 ```
@@ -223,58 +404,103 @@ git submodule sync
 git submodule update --init --recursive
 ```
 
----
+### Python Sanal Ortam Aktif Edilemiyor
+```bash
+# Sanal ortami yeniden olusturun
+rm -rf .venv
+uv venv
+source .venv/bin/activate
+```
 
-## 🚀 Next Steps
+### nano Editoru Kullanimi
 
-1. **Configure your API keys** in the OM1 project
-2. **Set up your robot parameters** according to the documentation
-3. **Run your first agent** using the provided scripts
-4. **Connect to OpenMind Fabric Portal** to monitor your deployment
-
----
-
-## 📚 Additional Resources
-
-- [OpenMind Fabric Portal](https://openmind.com)
-- [Homebrew Documentation](https://docs.brew.sh)
-- [UV Documentation](https://github.com/astral-sh/uv)
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to:
-- Report bugs
-- Suggest new features
-- Submit pull requests
-- Improve documentation
+- **Yazmak:** Normal sekilde yazmaya baslayin
+- **Kaydetmek:** `Ctrl + O` basin, sonra `Enter`
+- **Cikmak:** `Ctrl + X` basin
+- **Silmek:** `Ctrl + K` (tum satiri siler)
+- **Aramak:** `Ctrl + W`
 
 ---
 
-## 📝 License
+## 📚 Ek Kaynaklar
 
-This guide is provided as-is for educational purposes.
-
----
-
-## ⚠️ Important Notes
-
-- When running commands with `sudo`, you'll be prompted for your password
-- Password characters won't be visible while typing (security feature)
-- Ensure stable internet connection during installation
-- Backup your system before making major changes
+- [OpenMind Fabric Portal](https://fabric.openmind.com)
+- [OpenMind Dokumantasyonu](https://docs.openmind.com)
+- [Homebrew Dokumantasyonu](https://docs.brew.sh)
+- [UV Dokumantasyonu](https://github.com/astral-sh/uv)
 
 ---
 
-## 💡 Tips
+## 🤝 Katkida Bulunma
 
-- Use `Tab` key for auto-completion in Terminal
-- Use `↑` arrow key to recall previous commands
-- Keep your system and packages updated regularly
+Katkilarinizi bekliyoruz! Sunlari yapabilirsiniz:
+- Hata bildirme
+- Yeni ozellik onerme
+- Pull request gonderme
+- Dokumantasyonu gelistirme
 
 ---
 
-**Made with ❤️ for the OpenMind Community**
+## 📝 Lisans
 
-*For support and questions, please refer to the official OpenMind documentation or community forums.*
+Bu rehber egitim amacli olarak saglanmaktadir.
+
+---
+
+## ⚠️ Onemli Notlar
+
+- **API Key'lerinizi asla GitHub'a yuklemeyin!**
+- `.env` dosyasini `.gitignore` dosyaniza ekleyin
+- API key'lerinizi kimseyle paylasmаyin
+- `sudo` ile komut calistirirken sifreniz istenecektir
+- Sifre yazarken karakterler gorunmez (guvenlik ozelligi)
+- Kurulum sirasinda stabil internet baglantisi oldugundan emin olun
+- Buyuk degisiklikler yapmadan once sisteminizi yedekleyin
+
+---
+
+## 💡 Ipuclari
+
+- Terminal'de otomatik tamamlama icin `Tab` tusunu kullanin
+- Onceki komutlari hatirlamak icin `↑` ok tusunu kullanin
+- Sisteminizi ve paketlerinizi duzenli olarak guncel tutun
+- API key'lerinizi duzenli olarak yenileyin
+- Test ortami icin ayri bir API key kullanin
+- `.env` dosyasini yedekleyin ama guvenli bir yerde saklayin
+
+---
+
+## 🎯 Hizli Baslangic Ozeti
+
+### macOS:
+1. ✅ OpenMind Portal'dan API key alin
+2. ✅ Homebrew yukleyin
+3. ✅ `brew install portaudio ffmpeg rust uv`
+4. ✅ `git clone https://github.com/OpenMindAGI/OM1.git`
+5. ✅ `cd OM1`
+6. ✅ `git submodule update --init`
+7. ✅ `uv venv`
+8. ✅ `bash scripts/setup.sh`
+9. ✅ `nano .env` (API key'leri girin)
+10. ✅ `source .venv/bin/activate`
+11. ✅ `python main.py`
+
+### Linux:
+1. ✅ OpenMind Portal'dan API key alin
+2. ✅ `sudo apt-get update`
+3. ✅ `sudo apt-get install portaudio19-dev python-all-dev ffmpeg alsa-utils -y`
+4. ✅ UV yukleyin (wget + install.sh)
+5. ✅ `git clone https://github.com/OpenMindAGI/OM1.git`
+6. ✅ `cd OM1`
+7. ✅ `git submodule update --init`
+8. ✅ `uv venv`
+9. ✅ `bash scripts/setup.sh`
+10. ✅ `nano .env` (API key'leri girin)
+11. ✅ `source .venv/bin/activate`
+12. ✅ `python main.py`
+
+---
+
+**OpenMind Toplulugu icin ❤️ ile yapildi**
+
+*Destek ve sorulariniz icin lutfen resmi OpenMind dokumantasyonuna veya topluluk forumlarina basvurun.*
