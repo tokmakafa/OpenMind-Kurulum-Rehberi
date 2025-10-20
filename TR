@@ -1,0 +1,280 @@
+# 🤖 OpenMind Fabric Portal'da İlk Robotunuzu Oluşturun
+
+macOS ve Linux sistemlerinde OM1 ajanını kurmak ve dağıtmak için kapsamlı rehber.
+
+---
+
+## 📋 İçindekiler
+- [Gereksinimler](#-gereksinimler)
+- [macOS Kurulumu](#-macos-kurulumu)
+- [Linux Kurulumu](#-linux-kurulumu)
+- [Doğrulama](#-doğrulama)
+- [Sorun Giderme](#-sorun-giderme)
+- [Sonraki Adımlar](#-sonraki-adımlar)
+
+---
+
+## 🔧 Gereksinimler
+
+### macOS
+- macOS (Apple Silicon veya Intel)
+- Homebrew paket yöneticisi
+- OpenMind API Anahtarları (OpenMind Fabric Portal'dan edinin - yeni kullanıcılar için $5 kredi)
+
+### Linux
+- Ubuntu/Debian tabanlı dağıtım
+- Sudo yetkilerine sahip terminal erişimi
+- İnternet bağlantısı
+
+---
+
+## 🍎 macOS Kurulumu
+
+### Adım 1: Homebrew Kurulumu
+
+Eğer Homebrew yüklü değilse, Terminal'de şu komutu çalıştırın:
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+### Homebrew Kurulumunu Doğrulayın
+```bash
+brew --version
+```
+
+### Adım 2: PortAudio Kurulumu
+```bash
+brew install portaudio
+```
+
+### Adım 3: FFmpeg Kurulumu
+```bash
+brew install ffmpeg
+```
+
+### Adım 4: Rust Kurulumu
+```bash
+brew install rust
+```
+
+### Adım 5: UV Paket Yöneticisi Kurulumu
+```bash
+brew install uv
+```
+
+### Adım 6: OM1 Projesini Klonlayın
+```bash
+git clone https://github.com/OpenMindAGI/OM1.git
+```
+
+### Proje Dizinine Geçin
+```bash
+cd OM1
+```
+
+### Adım 7: Git Alt Modüllerini Güncelleyin
+```bash
+git submodule update --init
+```
+
+### Adım 8: Sanal Ortam Oluşturun
+```bash
+uv venv
+```
+
+### Adım 9: Kurulumu Çalıştırın
+```bash
+bash scripts/setup.sh
+```
+
+---
+
+## 🐧 Linux Kurulumu
+
+### Adım 1: Sistemi Güncelleyin
+```bash
+sudo apt-get update
+```
+
+### Adım 2: PortAudio ve Python Geliştirme Paketlerini Kurun
+```bash
+sudo apt-get install portaudio19-dev python-all-dev -y
+```
+
+### Adım 3: FFmpeg Kurulumu
+```bash
+sudo apt-get install ffmpeg -y
+```
+
+### Adım 4: ALSA Araçlarını Kurun
+```bash
+sudo apt-get install alsa-utils -y
+```
+
+### Ses Modülünü Yükleyin
+```bash
+sudo modprobe snd-dummy
+```
+
+### Adım 5: UV Yükleyicisini İndirin
+```bash
+wget https://astral.sh/uv/install.sh
+```
+
+### Yükleyiciyi Çalıştırılabilir Yapın
+```bash
+chmod +x install.sh
+```
+
+### UV Yükleyicisini Çalıştırın
+```bash
+./install.sh
+```
+
+### Adım 6: OM1 Deposunu Klonlayın
+```bash
+git clone https://github.com/OpenMindAGI/OM1.git
+```
+
+### Proje Dizinine Geçin
+```bash
+cd OM1
+```
+
+### Adım 7: Git Alt Modüllerini Güncelleyin
+```bash
+git submodule update --init
+```
+
+### Adım 8: Sanal Ortam Oluşturun
+```bash
+uv venv
+```
+
+### Adım 9: Kurulumu Çalıştırın
+```bash
+bash scripts/setup.sh
+```
+
+---
+
+## ✅ Doğrulama
+
+### Homebrew'i Kontrol Edin (macOS)
+```bash
+brew --version
+```
+
+### PortAudio'yu Kontrol Edin (macOS)
+```bash
+brew list portaudio
+```
+
+### FFmpeg'i Kontrol Edin
+```bash
+ffmpeg -version
+```
+
+### Cargo'yu Kontrol Edin (Rust)
+```bash
+cargo --version
+```
+
+### UV'yi Kontrol Edin
+```bash
+uv --version
+```
+
+---
+
+## 🔍 Sorun Giderme
+
+### macOS: Homebrew Komutu Bulunamadı
+```bash
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+```
+```bash
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
+
+### İzin Reddedildi Hatası
+```bash
+sudo chmod +x install.sh
+```
+
+### Linux: Sistem Paketlerini Güncelleyin
+```bash
+sudo apt-get update
+```
+```bash
+sudo apt-get upgrade
+```
+
+### Ses Cihazlarını Kontrol Edin
+```bash
+aplay -l
+```
+
+### Git Alt Modüllerini Senkronize Edin
+```bash
+git submodule sync
+```
+```bash
+git submodule update --init --recursive
+```
+
+---
+
+## 🚀 Sonraki Adımlar
+
+1. **API anahtarlarınızı yapılandırın** - OM1 projesinde
+2. **Robot parametrelerinizi ayarlayın** - dokümantasyona göre
+3. **İlk ajanınızı çalıştırın** - sağlanan betikleri kullanarak
+4. **OpenMind Fabric Portal'a bağlanın** - dağıtımınızı izlemek için
+
+---
+
+## 📚 Ek Kaynaklar
+
+- [OpenMind Fabric Portal](https://openmind.com)
+- [Homebrew Dokümantasyonu](https://docs.brew.sh)
+- [UV Dokümantasyonu](https://github.com/astral-sh/uv)
+
+---
+
+## 🤝 Katkıda Bulunma
+
+Katkılarınızı bekliyoruz! Şunları yapabilirsiniz:
+- Hata bildirme
+- Yeni özellik önerme
+- Pull request gönderme
+- Dokümantasyonu geliştirme
+
+---
+
+## 📝 Lisans
+
+Bu rehber eğitim amaçlı olarak sağlanmaktadır.
+
+---
+
+## ⚠️ Önemli Notlar
+
+- `sudo` ile komut çalıştırırken şifreniz istenecektir
+- Şifre yazarken karakterler görünmez (güvenlik özelliği)
+- Kurulum sırasında stabil internet bağlantısı olduğundan emin olun
+- Büyük değişiklikler yapmadan önce sisteminizi yedekleyin
+
+---
+
+## 💡 İpuçları
+
+- Terminal'de otomatik tamamlama için `Tab` tuşunu kullanın
+- Önceki komutları hatırlamak için `↑` ok tuşunu kullanın
+- Sisteminizi ve paketlerinizi düzenli olarak güncel tutun
+
+---
+
+**OpenMind Topluluğu için ❤️ ile yapıldı**
+
+*Destek ve sorularınız için lütfen resmi OpenMind dokümantasyonuna veya topluluk forumlarına başvurun.*
